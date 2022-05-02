@@ -1,7 +1,24 @@
 #ffmpeg -i video.webm -crf 0  video.mp4
 #-crf 0 = lossless video quality = more cpu intensive
-$dateStamp = Get-Date -f "dd-MMM-yyyy"
-$logFile = "C:\users\James\Desktop\PowerShell\webmconversions_$($dateStamp).log"
+
+<#
+    .Description
+        Very much still a work in progress, but here's the beginnings of a script that will
+        convert webm files to mp4 files using ffmpeg and then log the results of the conversion process. 
+
+        Inspired by my constant converting of webms to mp4s using VLC just so the Apple users in the squad group chat
+        could have a giggle too. Wanted something that could quickly be called and isn't as daunting as the ffmpeg cli
+
+    .Notes
+      TODO:
+        Everything
+        Check for existence of ffmpeg prior to command executing
+        maybe implement ps jobs or some other multi-threading mechanism to handle LOTS of webms at once
+#>
+
+
+$dateStamp = Get-Date -Format FileDateTime
+$logFile = "C:\logs\webmconversions_$($dateStamp).log"
 function Write-Log {
     Param(
         [Parameter(Mandatory,ValueFromPipeline)]
