@@ -25,18 +25,13 @@ function Write-Log {
         [string] $LogMessage,
 
         [Parameter(Mandatory = $false)]
-        [ValidateSet ("DEBUG","INFO","WARN","ERROR""FATAL")]
+        [ValidateSet ("INFO","WARN","ERROR""FATAL")]
         [string] $LogLevel = "INFO"
     )
     $TimeStamp = (Get-Date).ToUniversalTime().ToString("yyyy/MM/dd HH:mm:ss")
 
-    try{
-        $ScriptName = Split-Path $PSCommandPath -Leaf
-    }
-    catch{
-        $ScriptName = 'LocalRun'
-    }
-    $NewLogLine = '{0},{1},{2},{3}' -f $TimeStamp, $ScriptName, $LogLevel, $LogMessage
+
+    $NewLogLine = '{0},{1},{2}' -f $TimeStamp, $LogLevel, $LogMessage
     Write-Verbose $NewLogLine -Verbose
 
     if (Test-Path -path $logFile){
